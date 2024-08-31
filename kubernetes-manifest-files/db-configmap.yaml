@@ -1,0 +1,9 @@
+# k8s-manifests/db-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  DB_HOST: "<rds-endpoint>"  # Replace with your RDS endpoint
+  DB_PORT: "5432"            # Port for PostgreSQL
+  DB_NAME: "your_database"   # Replace with your database name

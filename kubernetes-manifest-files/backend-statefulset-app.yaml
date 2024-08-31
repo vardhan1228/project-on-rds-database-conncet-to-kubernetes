@@ -1,0 +1,58 @@
+# k8s-manifests/statefulset-app.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-stateful-app
+spec:
+  serviceName: "my-stateful-app"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-stateful-app
+  template:
+    metadata:
+      labels:
+        app: my-stateful-app
+    spec:
+      containers:
+        - name: my-app
+          image: my-app-image:latest  # Replace with your actual image
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_PORT
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rds-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rds-credentials
+                  key: password
+          volumeMounts:
+            - name: app-data
+              mountPath: /var/lib/app-data  # Example path for app state/data
+  volumeClaimTemplates:
+    - metadata:
+        name: app-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi  # Adjust size as needed
