@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: my-app-image:latest  # Replace with your actual image
+          image: 703671931980.dkr.ecr.us-east-1.amazonaws.com/backend:latest  # Replace with your actual image
           ports:
             - containerPort: 8080
           env:
