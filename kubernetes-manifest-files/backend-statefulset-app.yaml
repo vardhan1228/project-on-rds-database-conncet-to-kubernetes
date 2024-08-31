@@ -45,14 +45,14 @@ spec:
                 secretKeyRef:
                   name: rds-credentials
                   key: password
-          volumeMounts:
-            - name: app-data
-              mountPath: /var/lib/app-data  # Example path for app state/data
-  volumeClaimTemplates:
-    - metadata:
-        name: app-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi  # Adjust size as needed
+  #         volumeMounts:
+  #           - name: app-data
+  #             mountPath: /var/lib/app-data  # Example path for app state/data
+  # volumeClaimTemplates:
+  #   - metadata:
+  #       name: app-data
+  #     spec:
+  #       accessModes: ["ReadWriteOnce"]
+  #       resources:
+  #         requests:
+  #           storage: 1Gi  # Adjust size as needed
